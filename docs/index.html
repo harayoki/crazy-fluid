@@ -178,11 +178,12 @@
             <figure class="stage" id="previewFigure"><canvas id="preview" aria-label="出力"></canvas><div id="overlay" class="overlay"></div><div id="busy" class="busy" hidden></div></figure>
           </div>
           <div class="transport">
-            <button id="rewind" type="button">⏮</button>
+            <button id="rewind" type="button" title="最初のフレームへ">⏮</button>
             <button id="prev" type="button">◀</button>
             <button id="playReverse" type="button" title="逆再生">◀ Play</button>
             <button id="play" type="button" title="再生">Play ▶</button>
             <button id="next" type="button">▶</button>
+            <button id="toEnd" type="button" title="最後のフレームへ">⏭</button>
             <input id="time" type="range" min="0" max="10" step="0.0001" value="0">
             <output id="timeText">0.000 s</output>
             <label><input id="loop" type="checkbox"> ループ</label>
@@ -1261,6 +1262,7 @@
         event.preventDefault();
       });
       $('#rewind').addEventListener('click', () => { frame = 0; requestFrame(); });
+      $('#toEnd').addEventListener('click', () => { frame = lastFrame(); requestFrame(); });
       $('#prev').addEventListener('click', () => { frame = Math.max(0, frame - 1); requestFrame(); });
       $('#next').addEventListener('click', () => { frame += 1; requestFrame(); });
       // Seeded randomisation of the effectors (web UI only; hosts keep explicit
